@@ -1,0 +1,62 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "data/map.tmx",
+    "expandedProjectPaths": [
+        "data"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "data/Platforms.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/Subway_tiles_x4.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/fg_sky.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/map.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1304.5454545454547,
+                "y": 1562.1212121212122
+            }
+        },
+        "data/tiles_out.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "data/wall_subway.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "openFiles": [
+        "data/fg_sky.tsx",
+        "data/Platforms.tsx",
+        "data/Subway_tiles_x4.tsx",
+        "data/tiles_out.tsx",
+        "data/wall_subway.tsx",
+        "data/map.tmx"
+    ],
+    "project": "contra.tiled-project",
+    "recentFiles": [
+        "data/fg_sky.tsx",
+        "data/Platforms.tsx",
+        "data/Subway_tiles_x4.tsx",
+        "data/tiles_out.tsx",
+        "data/wall_subway.tsx",
+        "data/map.tmx"
+    ]
+}
