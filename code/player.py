@@ -314,6 +314,11 @@ class Player(Entity):
                 self.dash_trails[0].kill()
                 del(self.dash_trails[0])
         self.dash_trail_create_timer += dt_ms
+
+    def clear_trails(self):
+        for trail in self.dash_trails:
+            trail.kill()
+        self.dash_trails = []
     
     def logic(self, dt):
         dt_ms = dt * 1000
@@ -340,10 +345,7 @@ class Player(Entity):
         if self.horizontal_speed == self.dash_speed:
             self.create_trails(dt_ms)
         # Delete all trails otherwise
-        elif len(self.dash_trails) > 0:
-            for trail in self.dash_trails:
-                trail.kill()
-            self.dash_trails = []
+        elif len(self.dash_trails) > 0: self.clear_trails()
         # Wall Jump Logic
         self.can_wall_jump = False
         if (self.wall_jump_period_timer >= 1):
@@ -414,6 +416,7 @@ class Player(Entity):
         self.can_wall_jump = False
         self.can_jump = False
         self.health = 0
+        self.clear_trails()
     
     def respawn(self):
         super().respawn()
@@ -430,7 +433,9 @@ class Player(Entity):
         # self.knockback_invulnerability = False
         for enemy in self.enemy_group.sprites():
             enemy.respawn()
+        old_blood_list = self.blood_list.copy()
         self.__init__(self.animations, self.pos, self.level_group, self.death_y, self.groups(), self.enemy_group)
+        self.blood_list = old_blood_list
         self.vertical_speed = -400
         self.direction.y = -1
         pass
