@@ -8,11 +8,19 @@ Requires Python 3.10 or later, and the latest versions of pygame and pytmx (the 
 Default controls: 
 
 Left and Right Arrows - Movement
+
 Down Arrow - Duck
+
 Z - Jump/Respawn
+
 X - Fire
+
 C - Dash
+
 Shift - Strafe
+
 K - Self-Destruct
+
 F - Fullscreen
+
 P - Show Framerate
