@@ -1,7 +1,8 @@
-from random import randrange, uniform
+from random import Random, random, randrange, uniform
 import pygame
 from pygame.math import Vector2
 from code.settings import *
+from code.tile import MovingPlatform
 
 def changeColor(image, color):
     colouredImage = pygame.Surface(image.get_size())
@@ -16,12 +17,53 @@ class Sprite(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surface
         self.rect = self.image.get_rect(center = pos)
-        self.hitbox = self.rect.inflate(0, -self.rect.height * 0.6)
-        self.hitbox.top = self.rect.centery
-        self.offset_pos = Vector2()
-        self.z = 1
+        self.pos = Vector2(pos)
+        self.z = z
         pass
     pass
+
+class BloodParticle(Sprite):
+    def __init__(self, surface, pos, groups, collision_group, z = 2, min_velocity = 100, max_velocity = 1000, gravity = 2400, lifetime = 3000, min_scale = 0.25, max_scale = 1.25):
+        super().__init__(surface, pos, groups, z)
+        self.collision_group = collision_group
+        self.x_velocity = randrange(min_velocity, max_velocity) if min_velocity != max_velocity else max_velocity
+        self.y_velocity = self.x_velocity
+        self.gravity = gravity
+        self.direction = Vector2(uniform(-1, 1), -1)
+        self.collided = False
+        if min_scale != max_scale: 
+            random_size = uniform(min_scale, max_scale)
+            self.image = pygame.transform.scale(surface, (surface.get_width() * random_size, surface.get_height() * random_size))
+        self.lifetime = lifetime
+        self.timer = 0
+        self.parented = False
+        self.parent = None
+        self.parent_prev_x = 0
+        self.parent_prev_y = 0
+        
+    def update(self, dt):
+        if not self.collided:
+            self.pos.x += self.direction.x * self.x_velocity * dt
+            self.y_velocity -= self.gravity * dt
+            self.pos.y += self.direction.y * self.y_velocity * dt
+            self.timer += dt * 1000
+            self.rect.center = (round(self.pos.x), round(self.pos.y))
+            if self.timer > self.lifetime:
+                self.collided = True
+            level_collision = pygame.sprite.spritecollideany(self, self.collision_group)
+            if level_collision and pygame.sprite.collide_mask(self, level_collision):
+                self.collided = True
+                if type(level_collision) == MovingPlatform:
+                    self.parented = True
+                    self.parent = level_collision
+                    self.parent_prev_x = self.parent.rect.x
+                    self.parent_prev_y = self.parent.rect.y
+        if self.parented:
+            y_difference = self.parent.rect.y - self.parent_prev_y
+            if y_difference != 0:
+                self.rect.y += y_difference
+                self.parent_prev_y = self.parent.rect.y
+        
 
 class BloodSplat(pygame.sprite.Sprite):
     def __init__(self, surface: pygame.surface.Surface, pos, groups, color = None):

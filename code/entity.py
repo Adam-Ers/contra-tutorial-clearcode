@@ -42,13 +42,16 @@ class Entity(pygame.sprite.Sprite):
         self.bullet_list = []
         ## Game Logic
         self.dt = 0
-        self.bloodsurface = pygame.image.load("graphics/blood.png").convert_alpha()
+        #self.bloodsurface = pygame.image.load("graphics/blood.png").convert_alpha()
         self.dead = False
         self.health = 1
         self.blood_list = []
-        self.blood_color = None
+        self.blood_color = (200, 0, 0)
+        self.blood_particle = pygame.surface.Surface((12, 12))
+        self.blood_particle.fill(self.blood_color)
         self.vulnerable = True
-        self.max_blood = 2
+        self.blood_gib_count = 50
+        self.max_blood = self.blood_gib_count * 1
         ## Collision
         self.level_group = level_group
         ## Sounds
@@ -93,8 +96,8 @@ class Entity(pygame.sprite.Sprite):
 
     
     def die(self):
-        for i in range(2):
-            self.blood_list.append(BloodSplat(self.bloodsurface, self.rect.center, self.groups()[0], self.blood_color))
+        for i in range(self.blood_gib_count):
+            self.blood_list.append(BloodParticle(self.blood_particle, self.pos, self.groups()[0], self.level_group))
             if len(self.blood_list) > self.max_blood:
                 self.blood_list[0].kill()
                 del(self.blood_list[0])

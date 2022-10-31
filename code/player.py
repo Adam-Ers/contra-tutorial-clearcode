@@ -59,7 +59,8 @@ class Player(Entity):
         ## Game Logic
         self.health = PLAYER_MAX_HEALTH
         self.death_y = death_y
-        self.max_blood = 50
+        self.blood_gib_count = 100
+        self.max_blood = self.blood_gib_count * 4
         self.knockback_invulnerability = False
         self.knockback_invulnerability_timer = 0
         self.knockback_invulnerability_period = PLAYER_INVINCIBILITY_TIME
