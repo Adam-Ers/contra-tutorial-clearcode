@@ -27,7 +27,8 @@ def import_assets(path):
                 path = f"{fixed_folder}/{image}"
                 surf = pygame.image.load(path).convert_alpha();
                 # Find name of folder by taking only what comes after '\'
-                key = folder[0].split('\\')[1]
+                print(fixed_folder)
+                key = fixed_folder.split('/').pop()
                 # Append image to the animations dictionary, using folder name as key
                 animations[key].append(surf)
     return animations
