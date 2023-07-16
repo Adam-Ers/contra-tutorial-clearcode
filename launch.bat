@@ -1,6 +1,6 @@
 @echo off
-py -m pip install pytmx
-py -m pip install pygame
+python3 -m pip install pytmx
+python3 -m pip install pygame-ce
 echo Controls:
 echo Left and Right Arrows - Movement
 echo Down Arrow - Duck
@@ -12,5 +12,5 @@ echo K - Commit Die
 echo F - Fullscreen
 echo P - Show Framerate
 echo.
-py main.py
+python3 main.py
 pause
